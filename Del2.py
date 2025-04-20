@@ -1,3 +1,20 @@
+#class
+
+class Book:    
+    def __init__(self, title):
+        self.Title = title
+        self.Author = "N/A"
+        self.pageCount = "N/A"
+        self.Price = "N/A"
+    
+    def SetAuthor(self, author):
+        self.Author = author
+    def SetPageCount(self, pageCount):
+        self.pageCount = pageCount
+    def SetPrice(self, price):
+        self.Price = price
+
+#main
 
 def main():
     running = True
@@ -26,8 +43,7 @@ def Addbook():
         if not ChoiceIsEmpty(Author):
             newBook.SetAuthor(Author) 
             success = True
-        else:
-            success = True
+        else: success = True
             
     success = False
     while success == False:
@@ -35,11 +51,10 @@ def Addbook():
         pageCount = input()
         if ConfirmChoice("sid antalet",pageCount) == False:
             continue
-        if not ChoiceIsEmpty(pageCount) and CanPassToNumber(pageCount):
+        if not ChoiceIsEmpty(pageCount):
             newBook.SetPageCount(pageCount) 
             success = True
-        else:
-            success = True
+        else: success = True
     
     success = False
     while success == False:
@@ -47,25 +62,25 @@ def Addbook():
         Price = input()
         if ConfirmChoice("priset",Price) == False:
             continue
-        if CanPassToNumber(Price) and not ChoiceIsEmpty(Price):
-            newBook.SetPageCount(Price) 
+        if not ChoiceIsEmpty(Price):
+            newBook.SetPrice(Price) 
             success = True
-        else:
-            success = True
+        else: success = True
     return newBook
 
 def ConfirmChoice(question, choice):
     selecting = True
     while selecting == True:
         print(f"är du säker att {question} ska vara : {choice} \n Skriv [J] för ja och [N] för Nej")
-        Choice = input()
-        if Choice == "J":
+        Choice = input().lower()
+        if Choice == "j":
             return True
-        if Choice == "N":
+        if Choice == "m":
             return False
         
 def ChoiceIsEmpty(choice):
     return choice == ""
+
 def CanPassToNumber(thingtotrytoparse):
     try:
         int(thingtotrytoparse)
@@ -75,22 +90,5 @@ def CanPassToNumber(thingtotrytoparse):
         return False
 
 
-
-
-#class
-
-class Book:    
-    def __init__(self, title):
-        self.Title = title
-        self.Author = "N/A"
-        self.pageCount = "N/A"
-        self.Price = "N/A"
-    
-    def SetAuthor(self, author):
-        self.Author = author
-    def SetPageCount(self, pageCount):
-        self.pageCount = pageCount
-    def SetPrice(self, price):
-        self.Price = price
 
 main()
