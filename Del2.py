@@ -7,7 +7,10 @@ def main():
 
         if userInput == "1":
             print("Skriv namnet på boken du vill lägga till")
-            
+            name = input()
+            print("Skriv namnet på författarn nu")
+            print("Skriv antal sidor på boken")
+            print("Skriv priset på boken")
 
 
 
