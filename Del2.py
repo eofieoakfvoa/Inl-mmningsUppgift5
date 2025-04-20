@@ -17,7 +17,7 @@ def Addbook():
     print("Skriv namnet på författarn nu, Eller inget ifall du inte vet")
     Author = input()
     ConfirmChoice(Author)
-    if Author != "":
+    if Author != "": #
         newBook.SetAuthor(Author)
     
     print("Skriv antal sidor på boken, Eller inget ifall du inte vet")
