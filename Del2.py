@@ -1,39 +1,77 @@
 
 def main():
     running = True
+    Booklist = []
     while running:
         print("Skriv [1] för att lägga till en bok \n [2] för att få alla böcker och deras information")
         userInput = input()
-
         if userInput == "1":
-            Addbook()
+            Booklist.append(Addbook())
+            print(Booklist)
 
 def Addbook():
     print("Skriv namnet på boken du vill lägga till, eller inget ifall du vill gå tillbaka")
     Title = input()
+    if not ChoiceIsEmpty(Title):
+        newBook = Book(Title)
+    else:
+        return
+    
+    success = False #Det känns som jag kan göra detta bättre på något sätt
+    while success == False:
+        print("Skriv namnet på författarn nu, Eller inget ifall du inte vet")
+        Author = input()
+        if ConfirmChoice("författarn",Author) == False:
+            continue
+        if not ChoiceIsEmpty(Author):
+            newBook.SetAuthor(Author) 
+            success = True
+        else:
+            success = True
+            
+    success = False
+    while success == False:
+        print("Skriv antal sidor på boken, Eller inget ifall du inte vet")
+        pageCount = input()
+        if ConfirmChoice("sid antalet",pageCount) == False:
+            continue
+        if not ChoiceIsEmpty(pageCount) and CanPassToNumber(pageCount):
+            newBook.SetPageCount(pageCount) 
+            success = True
+        else:
+            success = True
+    
+    success = False
+    while success == False:
+        print("Skriv priset på boken, Eller inget ifall du inte vet")
+        Price = input()
+        if ConfirmChoice("priset",Price) == False:
+            continue
+        if CanPassToNumber(Price) and not ChoiceIsEmpty(Price):
+            newBook.SetPageCount(Price) 
+            success = True
+        else:
+            success = True
+    return newBook
 
-    newBook = Book(Title)
-    
-    print("Skriv namnet på författarn nu, Eller inget ifall du inte vet")
-    Author = input()
-    ConfirmChoice(Author)
-    if Author != "": #
-        newBook.SetAuthor(Author)
-    
-    print("Skriv antal sidor på boken, Eller inget ifall du inte vet")
-    pageCount = input()
-    print("Skriv priset på boken, Eller inget ifall du inte vet")
-    Price = input()
-def ConfirmChoice(choice):
-    print(f"{choice}")
-def ChoiceIsEmpty():
-    pass
-def CheckIfCanPassToNumber(thingtotrytoparse):
+def ConfirmChoice(question, choice):
+    selecting = True
+    while selecting == True:
+        print(f"är du säker att {question} ska vara : {choice} \n Skriv [J] för ja och [N] för Nej")
+        Choice = input()
+        if Choice == "J":
+            return True
+        if Choice == "N":
+            return False
+        
+def ChoiceIsEmpty(choice):
+    return choice == ""
+def CanPassToNumber(thingtotrytoparse):
     try:
         int(thingtotrytoparse)
         return True
     except:
-        print("WAAAAAAAH")
+        print("Det du skrev är ej ett nummer")
         return False
 
 
